@@ -5,34 +5,17 @@
 	<key>fileTypes</key>
 	<array>
 		<string>html</string>
-		<string>htm</string>
-		<string>shtml</string>
-		<string>xhtml</string>
-		<string>phtml</string>
-		<string>php</string>
-		<string>inc</string>
-		<string>tmpl</string>
-		<string>tpl</string>
-		<string>ctp</string>
 	</array>
-	<key>firstLineMatch</key>
-	<string>&lt;!DOCTYPE|doctype|&lt;(?i:html)|&lt;\?(?i:php)</string>
 	<key>foldingStartMarker</key>
 	<string>(?x)
-		(&lt;(?i:a|article|aside|audio|blockquote|body|canvas|datalist|details|div|dl|fieldset|figcaption|figure|footer|form|head|header|hgroup|li|mark|meter|nav|ol|output|p|progress|rp|rt|ruby|script|section|select|small|style|summary|table|tbody|tfoot|thead|time|tr|ul|video)\b.*?&gt;
+		(&lt;[^&gt;]+&gt;
 		|&lt;!--(?!.*--\s*&gt;)
-		|^&lt;!--\ \#tminclude\ (?&gt;.*?--&gt;)$
-		|&lt;\?(?:php)?.*\b(if|for(each)?|while)\b.+:
-		|\{\{?(if|foreach|capture|literal|foreach|php|section|strip)
 		|\{\s*($|\?&gt;\s*$|//|/\*(.*\*/\s*$|(?!.*?\*/)))
 		)</string>
 	<key>foldingStopMarker</key>
 	<string>(?x)
-		(&lt;/(?i:a|article|aside|audio|blockquote|body|canvas|datalist|details|div|dl|fieldset|figcaption|figure|footer|form|head|header|hgroup|li|mark|meter|nav|ol|output|p|progress|rp|rt|ruby|script|section|select|small|style|summary|table|tbody|tfoot|thead|time|tr|ul|video)&gt;
+		(&lt;/[^&gt;]+&gt;
 		|^(?!.*?&lt;!--).*?--\s*&gt;
-		|^&lt;!--\ end\ tminclude\ --&gt;$
-		|&lt;\?(?:php)?.*\bend(if|for(each)?|while)\b
-		|\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)
 		|^[^{]*\}
 		)</string>
 	<key>keyEquivalent</key>
@@ -116,15 +99,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#tag-generic-attribute</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#string-double-quoted</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#string-single-quoted</string>
+					<string>#tag-stuff</string>
 				</dict>
 			</array>
 		</dict>
@@ -150,10 +125,6 @@
 					<string>--</string>
 					<key>name</key>
 					<string>invalid.illegal.bad-comments-or-CDATA.html</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#embedded-code</string>
 				</dict>
 			</array>
 		</dict>
@@ -217,7 +188,7 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#embedded-code</string>
+			<string>#derby</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -265,10 +236,6 @@
 					<string>(?=&lt;/(?i:style))</string>
 					<key>patterns</key>
 					<array>
-						<dict>
-							<key>include</key>
-							<string>#embedded-code</string>
-						</dict>
 						<dict>
 							<key>include</key>
 							<string>source.css</string>
@@ -363,97 +330,9 @@
 						</dict>
 						<dict>
 							<key>include</key>
-							<string>#php</string>
-						</dict>
-						<dict>
-							<key>include</key>
 							<string>source.js</string>
 						</dict>
 					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>begin</key>
-			<string>(&lt;/?)((?i:body|head|html)\b)</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.structure.any.html</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(&gt;)</string>
-			<key>name</key>
-			<string>meta.tag.structure.any.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#tag-stuff</string>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>begin</key>
-			<string>(&lt;/?)((?i:address|blockquote|dd|div|header|section|footer|aside|nav|dl|dt|fieldset|form|frame|frameset|h1|h2|h3|h4|h5|h6|iframe|noframes|object|ol|p|ul|applet|center|dir|hr|menu|pre)\b)</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.block.any.html</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(&gt;)</string>
-			<key>name</key>
-			<string>meta.tag.block.any.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#tag-stuff</string>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>begin</key>
-			<string>(&lt;/?)((?i:a|abbr|acronym|area|b|base|basefont|bdo|big|br|button|caption|cite|code|col|colgroup|del|dfn|em|font|head|html|i|img|input|ins|isindex|kbd|label|legend|li|link|map|meta|noscript|optgroup|option|param|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|var)\b)</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.inline.any.html</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>((?: ?/)?&gt;)</string>
-			<key>name</key>
-			<string>meta.tag.inline.any.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#tag-stuff</string>
 				</dict>
 			</array>
 		</dict>
@@ -476,7 +355,7 @@
 			<key>end</key>
 			<string>(&gt;)</string>
 			<key>name</key>
-			<string>meta.tag.other.html</string>
+			<string>meta.tag.any.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -488,6 +367,16 @@
 		<dict>
 			<key>include</key>
 			<string>#entities</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#derby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\s+(?=\n)</string>
+			<key>name</key>
+			<string>text.whitespace.trailing</string>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -504,28 +393,6 @@
 	</array>
 	<key>repository</key>
 	<dict>
-		<key>embedded-code</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#php</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#smarty</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#python</string>
-				</dict>
-			</array>
-		</dict>
 		<key>entities</key>
 		<dict>
 			<key>patterns</key>
@@ -557,349 +424,303 @@
 				</dict>
 			</array>
 		</dict>
-		<key>php</key>
+		
+		<key>derby-literal</key>
 		<dict>
 			<key>begin</key>
-			<string>(?=(^\s*)?&lt;\?)</string>
-			<key>end</key>
-			<string>(?!(^\s*)?&lt;\?)</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>source.php</string>
-				</dict>
-			</array>
-		</dict>
-		<key>python</key>
-		<dict>
-			<key>begin</key>
-			<string>(?:^\s*)&lt;\?python(?!.*\?&gt;)</string>
-			<key>end</key>
-			<string>\?&gt;(?:\s*$\n)?</string>
-			<key>name</key>
-			<string>source.python.embedded.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>source.python</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ruby</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>&lt;%+#</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.comment.erb</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>%&gt;</string>
-					<key>name</key>
-					<string>comment.block.erb</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>&lt;%+(?!&gt;)=?</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.embedded.ruby</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>-?%&gt;</string>
-					<key>name</key>
-					<string>source.ruby.embedded.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.comment.ruby</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>(#).*?(?=-?%&gt;)</string>
-							<key>name</key>
-							<string>comment.line.number-sign.ruby</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>source.ruby</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>&lt;\?r(?!&gt;)=?</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.embedded.ruby.nitro</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>-?\?&gt;</string>
-					<key>name</key>
-					<string>source.ruby.nitro.embedded.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.comment.ruby.nitro</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>(#).*?(?=-?\?&gt;)</string>
-							<key>name</key>
-							<string>comment.line.number-sign.ruby.nitro</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>source.ruby</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<key>smarty</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>(\{(literal)\})</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>source.smarty.embedded.html</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>support.function.built-in.smarty</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(\{/(literal)\})</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>{{|{</string>
-					<key>disabled</key>
-					<integer>1</integer>
-					<key>end</key>
-					<string>}}|}</string>
-					<key>name</key>
-					<string>source.smarty.embedded.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.smarty</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<key>string-double-quoted</key>
-		<dict>
-			<key>begin</key>
-			<string>"</string>
+			<string>\{{2,3}</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.string.begin.html</string>
+					<string>template.punctuation.derby.start.html</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>"</string>
+			<string>\}{2,3}</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.string.end.html</string>
+					<string>template.punctuation.derby.end.html</string>
 				</dict>
 			</dict>
 			<key>name</key>
-			<string>string.quoted.double.html</string>
+			<string>template.derby.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#embedded-code</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#entities</string>
+					<string>#derby-interpolation</string>
 				</dict>
 			</array>
 		</dict>
-		<key>string-single-quoted</key>
+		<key>derby-bind</key>
 		<dict>
 			<key>begin</key>
-			<string>'</string>
+			<string>\({2,3}</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.string.begin.html</string>
+					<string>template.punctuation.derby.bind.start.html</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>'</string>
+			<string>\){2,3}</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.string.end.html</string>
+					<string>template.punctuation.derby.bind.end.html</string>
 				</dict>
 			</dict>
 			<key>name</key>
-			<string>string.quoted.single.html</string>
+			<string>template.derby.bind.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#embedded-code</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#entities</string>
+					<string>#derby-interpolation</string>
 				</dict>
 			</array>
 		</dict>
-		<key>tag-generic-attribute</key>
+		<key>derby</key>
 		<dict>
-			<key>match</key>
-			<string>\b([a-zA-Z\-:]+)</string>
-			<key>name</key>
-			<string>entity.other.attribute-name.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-literal</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#derby-bind</string>
+				</dict>
+			</array>
 		</dict>
-		<key>tag-id-attribute</key>
+
+		<key>derby-literal-unquoted</key>
 		<dict>
 			<key>begin</key>
-			<string>\b(id)\b\s*(=)</string>
-			<key>captures</key>
+			<string>\{{2,3}</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.start.html</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=[\s=&gt;])|\}{2,3}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.end.html</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>template.derby.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-interpolation</string>
+				</dict>
+			</array>
+		</dict>
+		<key>derby-bind-unquoted</key>
+		<dict>
+			<key>begin</key>
+			<string>\({2,3}</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.bind.start.html</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=[\s=&gt;])|\){2,3}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.bind.end.html</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>template.derby.bind.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-interpolation</string>
+				</dict>
+			</array>
+		</dict>
+		<key>derby-unquoted</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-literal-unquoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#derby-bind-unquoted</string>
+				</dict>
+			</array>
+		</dict>
+
+		<key>derby-interpolation</key>
+		<dict>
+			<key>begin</key>
+			<string>\[</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.interpolation.begin.html</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\]</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.interpolation.end.html</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>template.derby.interpolation.html</string>
+		</dict>
+		<key>tag-attribute-double-quote</key>
+		<dict>
+			<key>begin</key>
+			<string>([^\s=&gt;'"]+)\s*=\s*(")</string>
+			<key>end</key>
+			<string>"</string>
+			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>entity.other.attribute-name.id.html</string>
+					<string>entity.other.attribute-name.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.separator.key-value.html</string>
+					<string>string.attribute-value.punctuation.begin.html</string>
 				</dict>
 			</dict>
-			<key>end</key>
-			<string>(?&lt;='|")</string>
-			<key>name</key>
-			<string>meta.attribute-with-value.id.html</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>string.attribute-value.punctuation.end.html</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>string.attribute-value.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>begin</key>
-					<string>"</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.begin.html</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>meta.toc-list.id.html</string>
-					<key>end</key>
-					<string>"</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.end.html</string>
-						</dict>
-					</dict>
+					<key>include</key>
+					<string>#quoted-attribute</string>
+				</dict>
+			</array>
+		</dict>
+		<key>tag-attribute-single-quote</key>
+		<dict>
+			<key>begin</key>
+			<string>([^\s=&gt;'"]+)\s*=\s*(')</string>
+			<key>end</key>
+			<string>'</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
 					<key>name</key>
-					<string>string.quoted.double.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#embedded-code</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#entities</string>
-						</dict>
-					</array>
+					<string>entity.other.attribute-name.html</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>string.attribute-value.punctuation.begin.html</string>
+				</dict>
+			</dict>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>string.attribute-value.punctuation.end.html</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>string.attribute-value.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#quoted-attribute</string>
+				</dict>
+			</array>
+		</dict>
+		<key>quoted-attribute</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby</string>
 				</dict>
 				<dict>
-					<key>begin</key>
-					<string>'</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.begin.html</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>meta.toc-list.id.html</string>
-					<key>end</key>
-					<string>'</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.end.html</string>
-						</dict>
-					</dict>
+					<key>include</key>
+					<string>#entities</string>
+				</dict>
+			</array>
+		</dict>
+		<key>tag-attribute-unquoted</key>
+		<dict>
+			<key>begin</key>
+			<string>([^\s=&gt;'"]+)(?:\s*=\s*)?</string>
+			<key>end</key>
+			<string>(?=[\s=&gt;'"])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
 					<key>name</key>
-					<string>string.quoted.single.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#embedded-code</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#entities</string>
-						</dict>
-					</array>
+					<string>entity.other.attribute-name.html</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>string.attribute-value.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-unquoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#entities</string>
 				</dict>
 			</array>
 		</dict>
@@ -909,23 +730,21 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#tag-id-attribute</string>
+					<string>#tag-attribute-double-quote</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#tag-generic-attribute</string>
+					<string>#tag-attribute-single-quote</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#string-double-quoted</string>
+					<string>#tag-attribute-unquoted</string>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>#string-single-quoted</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#embedded-code</string>
+					<key>match</key>
+					<string>["'=]</string>
+					<key>name</key>
+					<string>invalid.illegal.unmatched.html</string>
 				</dict>
 			</array>
 		</dict>
