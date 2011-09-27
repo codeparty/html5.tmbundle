@@ -624,7 +624,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>string.attribute-value.punctuation.begin.html</string>
+					<string>punctuation.definition.string.begin.attribute-value.html</string>
 				</dict>
 			</dict>
 			<key>endCaptures</key>
@@ -632,7 +632,7 @@
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>string.attribute-value.punctuation.end.html</string>
+					<string>punctuation.definition.string.end.attribute-value.html</string>
 				</dict>
 			</dict>
 			<key>contentName</key>
@@ -661,7 +661,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>string.attribute-value.punctuation.begin.html</string>
+					<string>punctuation.definition.string.begin.attribute-value.html</string>
 				</dict>
 			</dict>
 			<key>endCaptures</key>
@@ -669,7 +669,7 @@
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>string.attribute-value.punctuation.end.html</string>
+					<string>punctuation.definition.string.end.attribute-value.html</string>
 				</dict>
 			</dict>
 			<key>contentName</key>
@@ -750,7 +750,7 @@
 		</dict>
 	</dict>
 	<key>scopeName</key>
-	<string>text.html.basic</string>
+	<string>text.html.derby</string>
 	<key>uuid</key>
 	<string>6F87DAE1-56E0-4193-A940-8D68BC76874C</string>
 </dict>
