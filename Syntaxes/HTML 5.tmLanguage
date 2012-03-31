@@ -25,7 +25,7 @@
 	<key>keyEquivalent</key>
 	<string>^~H</string>
 	<key>name</key>
-	<string>HTML5</string>
+	<string>Derby HTML5</string>
 	<key>patterns</key>
 	<array>
 		<dict>
