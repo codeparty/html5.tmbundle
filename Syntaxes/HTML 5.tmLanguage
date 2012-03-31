@@ -8,16 +8,20 @@
 	</array>
 	<key>foldingStartMarker</key>
 	<string>(?x)
-		(&lt;[^&gt;]+&gt;
-		|&lt;!--(?!.*--\s*&gt;)
-		|\{\s*($|\?&gt;\s*$|//|/\*(.*\*/\s*$|(?!.*?\*/)))
-		)</string>
+		(?:
+			(?:&lt;[^&gt;]+&gt;)|
+			(?:&lt;!--(?!.*--\s*&gt;)|
+			(?:\{{1,3}#[^}]+\}{1,3})
+		)
+	</string>
 	<key>foldingStopMarker</key>
 	<string>(?x)
-		(&lt;/[^&gt;]+&gt;
-		|^(?!.*?&lt;!--).*?--\s*&gt;
-		|^[^{]*\}
-		)</string>
+		(?:
+			(?:&lt;/[^&gt;]+&gt;)|
+			(?:^(?!.*?&lt;!--).*?--\s*&gt;)|
+			(?:^(?:[\s\S]*?\{{1,3}\/[^}]+\}{1,3})
+		)
+	</string>
 	<key>keyEquivalent</key>
 	<string>^~H</string>
 	<key>name</key>
@@ -26,7 +30,7 @@
 	<array>
 		<dict>
 			<key>begin</key>
-			<string>(&lt;)([a-zA-Z0-9:]+)(?=[^&gt;]*&gt;&lt;/\2&gt;)</string>
+			<string>(&lt;)([^\s&gt;]+)(?=[^&gt;]*&gt;&lt;/\2&gt;)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -338,7 +342,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(&lt;/?)([a-zA-Z0-9:]+)</string>
+			<string>(&lt;/?)([^\s&gt;]+)</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -453,39 +457,39 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#derby-interpolation</string>
+					<string>#derby-tag</string>
 				</dict>
 			</array>
 		</dict>
 		<key>derby-bind</key>
 		<dict>
 			<key>begin</key>
-			<string>\({2,3}</string>
+			<string>\{</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>template.punctuation.derby.bind.start.html</string>
+					<string>template.punctuation.bind.derby.start.html</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\){2,3}</string>
+			<string>\}</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>template.punctuation.derby.bind.end.html</string>
+					<string>template.punctuation.bind.derby.end.html</string>
 				</dict>
 			</dict>
 			<key>name</key>
-			<string>template.derby.bind.html</string>
+			<string>template.bind.derby.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#derby-interpolation</string>
+					<string>#derby-tag</string>
 				</dict>
 			</array>
 		</dict>
@@ -532,39 +536,39 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#derby-interpolation</string>
+					<string>#derby-tag</string>
 				</dict>
 			</array>
 		</dict>
 		<key>derby-bind-unquoted</key>
 		<dict>
 			<key>begin</key>
-			<string>\({2,3}</string>
+			<string>\{</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>template.punctuation.derby.bind.start.html</string>
+					<string>template.punctuation.bind.derby.start.html</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=[\s=&gt;])|\){2,3}</string>
+			<string>(?=[\s=&gt;])|\}</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>template.punctuation.derby.bind.end.html</string>
+					<string>template.punctuation.bind.derby.end.html</string>
 				</dict>
 			</dict>
 			<key>name</key>
-			<string>template.derby.bind.html</string>
+			<string>template.bind.derby.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#derby-interpolation</string>
+					<string>#derby-tag</string>
 				</dict>
 			</array>
 		</dict>
@@ -581,6 +585,51 @@
 					<string>#derby-bind-unquoted</string>
 				</dict>
 			</array>
+		</dict>
+
+		<key>derby-tag</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-keyword</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#derby-interpolation</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>>(?=\s)</string>
+					<key>name</key>
+					<string>template.punctuation.derby.partial.html</string>
+				</dict>
+			</array>
+		</dict>
+
+		<key>derby-keyword</key>
+		<dict>
+			<key>match</key>
+			<string>(?:\b|(?:(#)|(/)\s*))(if|else|elseif|unless|each|with|unescaped|as|this)?(?=[\s,})\]]|$)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.block.begin.html</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>template.punctuation.derby.block.end.html</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.template.derby.html</string>
+				</dict>
+			</dict>
 		</dict>
 
 		<key>derby-interpolation</key>
@@ -608,6 +657,7 @@
 			<key>name</key>
 			<string>template.derby.interpolation.html</string>
 		</dict>
+
 		<key>tag-attribute-double-quote</key>
 		<dict>
 			<key>begin</key>
