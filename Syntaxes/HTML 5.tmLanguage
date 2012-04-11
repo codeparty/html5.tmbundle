@@ -429,10 +429,42 @@
 			</array>
 		</dict>
 		
+		<key>derby-macro</key>
+		<dict>
+			<key>begin</key>
+			<string>\{{3}</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.template.macro.derby.start.html</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\}{3}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.template.macro.derby.end.html</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>template.macro.derby.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-macro-tag</string>
+				</dict>
+			</array>
+		</dict>
 		<key>derby-literal</key>
 		<dict>
 			<key>begin</key>
-			<string>\{{2,3}</string>
+			<string>\{{2}</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -442,7 +474,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\}{2,3}</string>
+			<string>\}{2}</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
@@ -499,6 +531,10 @@
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#derby-macro</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#derby-literal</string>
 				</dict>
 				<dict>
@@ -508,10 +544,42 @@
 			</array>
 		</dict>
 
+		<key>derby-macro-unquoted</key>
+		<dict>
+			<key>begin</key>
+			<string>\{{3}</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.template.macro.derby.start.html</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=[\s=&gt;])|\}{3}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.template.macro.derby.end.html</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>template.macro.derby.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#derby-macro-tag</string>
+				</dict>
+			</array>
+		</dict>
 		<key>derby-literal-unquoted</key>
 		<dict>
 			<key>begin</key>
-			<string>\{{2,3}</string>
+			<string>\{{2}</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -521,7 +589,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=[\s=&gt;])|\}{2,3}</string>
+			<string>(?=[\s=&gt;])|\}{2}</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
@@ -578,6 +646,10 @@
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#derby-macro-unquoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#derby-literal-unquoted</string>
 				</dict>
 				<dict>
@@ -601,9 +673,26 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>>(?=\s)</string>
+					<string>\b(?:true|false|null)\b</string>
 					<key>name</key>
-					<string>punctuation.template.derby.partial.html</string>
+					<string>constant.value.derby.html</string>
+				</dict>
+			</array>
+		</dict>
+
+		<key>derby-macro-tag</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\bcontent\b</string>
+					<key>name</key>
+					<string>keyword.template.derby.html</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#derby-tag</string>
 				</dict>
 			</array>
 		</dict>
@@ -611,7 +700,7 @@
 		<key>derby-keyword</key>
 		<dict>
 			<key>match</key>
-			<string>(?:\b|(?:(#)|(/)\s*))(if|else|elseif|unless|each|with|unescaped|as|this)?(?=[\s,})\]]|$)</string>
+			<string>(?:\b|(?:(#)|(/)\s*))(if|else|elseif|unless|each|with|unescaped|as|this)?(?=[\s,.})\]]|$)</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
