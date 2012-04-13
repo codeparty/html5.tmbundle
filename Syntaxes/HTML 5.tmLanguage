@@ -700,7 +700,7 @@
 		<key>derby-keyword</key>
 		<dict>
 			<key>match</key>
-			<string>(?:\b|(?:(#)|(/)\s*))(if|else|elseif|unless|each|with|unescaped|as|this)?(?=[\s,.})\]]|$)</string>
+			<string>(?:\b|(?:(#)|(/)\s*))(if|else|unless|each|with|unescaped|as|this)?(?=[\s,.})\]]|$)</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
